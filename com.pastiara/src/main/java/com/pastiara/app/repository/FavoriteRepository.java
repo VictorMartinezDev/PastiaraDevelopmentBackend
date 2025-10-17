@@ -10,6 +10,6 @@ public interface FavoriteRepository extends JpaRepository<Favorite, Integer>{
 	
 	//===========Métodos personalizados==============================
 
-	List<Favorite> findByUserId(Long userId);
+	List<Favorite> findByUserUserId(Long userId);
 
 }

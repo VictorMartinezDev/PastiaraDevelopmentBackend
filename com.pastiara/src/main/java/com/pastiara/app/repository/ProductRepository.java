@@ -9,12 +9,12 @@ public interface ProductRepository extends JpaRepository<Product, Integer>{
 	//===========Métodos personalizados==============================
 	
 	// Buscar productos por nombre
-    List<Product> findByNameContainingIgnoreCase(String keyword);
+    List<Product> findByProductNameContainingIgnoreCase(String productName);
 
     // Buscar productos por categoría
     List<Product> findByCategory(String category);
 
     // Verificar si un producto existe por nombre
-    boolean existsByName(String name);
+    boolean existsByProductName(String productName);
 
 }

@@ -10,5 +10,6 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	//===========Métodos personalizados==============================
 
 	Optional<User> findByEmail(String email);
-    List<User> findByActiveTrue();
+	
+	List<User> findAll();
 }
