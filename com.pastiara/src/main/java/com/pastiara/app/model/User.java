@@ -5,6 +5,8 @@ import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -15,6 +17,7 @@ import jakarta.persistence.Table;
 public class User {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long userId;
 	@Column(length= 50, nullable = false)
 	private String email;
@@ -32,9 +35,9 @@ public class User {
 	
 	public User() {}
 
-	public User(Long id, String email, String password) {
+	public User(String email, String password) {
 		super();
-		this.userId = id;
+		//this.userId = id;
 		this.email = email;
 		this.password = password;
 	}
