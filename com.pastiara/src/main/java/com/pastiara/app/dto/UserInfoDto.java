@@ -1,21 +1,9 @@
-package com.pastiara.app.model;
+package com.pastiara.app.dto;
 
 import java.util.Objects;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
-
-@Entity
-@Table(name="Users_info")
-public class UserInfo {
-	@Id
-	@Column(name = "UserID")
-	private Long userId;
+public class UserInfoDto {
+	private Long identificador;
 	private String name;
 	private String lastName;
 	private String telephone;
@@ -23,15 +11,12 @@ public class UserInfo {
 	private String zipCode;
 	private String street;
 	
-	@OneToOne
-	@MapsId
-	@JoinColumn(name = "UserId")
-	private User user;
-    public UserInfo() {}
-	public UserInfo(Long userId, String name, String lastName, String telephone, String state, String zipCode,
+	public UserInfoDto() {}
+
+	public UserInfoDto(Long identificador, String name, String lastName, String telephone, String state, String zipCode,
 			String street) {
 		super();
-		this.userId = userId;
+		this.identificador = identificador;
 		this.name = name;
 		this.lastName = lastName;
 		this.telephone = telephone;
@@ -39,13 +24,13 @@ public class UserInfo {
 		this.zipCode = zipCode;
 		this.street = street;
 	}
-	
-	public Long getUserId() {
-		return userId;
+
+	public Long getIdentificador() {
+		return identificador;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setIdentificador(Long identificador) {
+		this.identificador = identificador;
 	}
 
 	public String getName() {
@@ -95,18 +80,12 @@ public class UserInfo {
 	public void setStreet(String street) {
 		this.street = street;
 	}
-	public User getUser() {
-	    return user;
-	}
 
-	public void setUser(User user) {
-	    this.user = user;
-	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("UserInfo [userId=");
-		builder.append(userId);
+		builder.append("UserInfoDto [identificador=");
+		builder.append(identificador);
 		builder.append(", name=");
 		builder.append(name);
 		builder.append(", lastName=");
@@ -122,10 +101,11 @@ public class UserInfo {
 		builder.append("]");
 		return builder.toString();
 	}
-
+	// como representa datos de identidad y seguridad se agrega hashcode y equals
+	
 	@Override
 	public int hashCode() {
-		return Objects.hash(lastName, name, state, street, telephone, userId, zipCode);
+		return Objects.hash(identificador, lastName, name, state, street, telephone, zipCode);
 	}
 
 	@Override
@@ -136,12 +116,12 @@ public class UserInfo {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		UserInfo other = (UserInfo) obj;
-		return Objects.equals(lastName, other.lastName) && Objects.equals(name, other.name)
-				&& Objects.equals(state, other.state) && Objects.equals(street, other.street)
-				&& Objects.equals(telephone, other.telephone) && Objects.equals(userId, other.userId)
+		UserInfoDto other = (UserInfoDto) obj;
+		return Objects.equals(identificador, other.identificador) && Objects.equals(lastName, other.lastName)
+				&& Objects.equals(name, other.name) && Objects.equals(state, other.state)
+				&& Objects.equals(street, other.street) && Objects.equals(telephone, other.telephone)
 				&& Objects.equals(zipCode, other.zipCode);
 	}
-
+	
 	
 }

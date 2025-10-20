@@ -1,5 +1,6 @@
 package com.pastiara.app.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -26,12 +27,12 @@ public class User {
 	
 	//Relacion con tabla tickets
 	@OneToMany(mappedBy="user")
-	List<Ticket> tickets;
+	List<Ticket> tickets = new ArrayList<>();
 	//Relacion con tabla UserInfo
 	@OneToOne(mappedBy="user")
 	UserInfo userInfo;
 	@OneToMany(mappedBy = "user")
-	List<Favorite> favorite;
+	List<Favorite> favorite = new ArrayList<>();
 	
 	public User() {}
 
