@@ -27,7 +27,7 @@ public class UserInfo {
 	@MapsId
 	@JoinColumn(name = "UserId")
 	private User user;
-
+    public UserInfo() {}
 	public UserInfo(Long userId, String name, String lastName, String telephone, String state, String zipCode,
 			String street) {
 		super();
@@ -39,7 +39,7 @@ public class UserInfo {
 		this.zipCode = zipCode;
 		this.street = street;
 	}
-
+	
 	public Long getUserId() {
 		return userId;
 	}
@@ -95,7 +95,13 @@ public class UserInfo {
 	public void setStreet(String street) {
 		this.street = street;
 	}
+	public User getUser() {
+	    return user;
+	}
 
+	public void setUser(User user) {
+	    this.user = user;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();

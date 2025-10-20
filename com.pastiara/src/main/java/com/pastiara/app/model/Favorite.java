@@ -25,9 +25,11 @@ public class Favorite {
 	
 	public Favorite () {}
 
-	public Favorite(Integer favoritesId) {
+	public Favorite(Integer favoritesId, User user, Product product) {
 		super();
 		this.favoritesId = favoritesId;
+		this.user = user;
+		this.product = product;
 	}
 
 	public Integer getFavoritesId() {
@@ -38,18 +40,38 @@ public class Favorite {
 		this.favoritesId = favoritesId;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Favorite [favoritesId=");
 		builder.append(favoritesId);
+		builder.append(", user=");
+		builder.append(user);
+		builder.append(", product=");
+		builder.append(product);
 		builder.append("]");
 		return builder.toString();
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(favoritesId);
+		return Objects.hash(favoritesId, product, user);
 	}
 
 	@Override
@@ -61,9 +83,9 @@ public class Favorite {
 		if (getClass() != obj.getClass())
 			return false;
 		Favorite other = (Favorite) obj;
-		return Objects.equals(favoritesId, other.favoritesId);
+		return Objects.equals(favoritesId, other.favoritesId) && Objects.equals(product, other.product)
+				&& Objects.equals(user, other.user);
 	}
-	
 	
 	
 }
