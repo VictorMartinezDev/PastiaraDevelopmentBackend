@@ -25,7 +25,7 @@ public class FavoriteController {
         return ResponseEntity.ok(favorites);
     }
     
-    // GET - Obtener favoritos de un usuario específico (ver mis favoritos)
+    // GET - Obtener favoritos de un usuario específico (ver mis favoritos) 
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<FavoriteDto>> getFavoritesByUserId(@PathVariable Long userId) {
         List<FavoriteDto> favorites = favoriteService.findByUserId(userId);

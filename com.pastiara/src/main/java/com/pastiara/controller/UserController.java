@@ -20,7 +20,7 @@ public class UserController {
         this.userService = userService;
     }
     
-    // ==================== CRUD para User ====================
+    // ==================== CRUD para User =====================
     
     // GET - Obtener todos los usuarios
     @GetMapping

@@ -25,7 +25,7 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
     
-    // GET - Obtener producto por ID
+    // GET - Obtener producto por ID 
     @GetMapping("/{id}")
     public ResponseEntity<ProductDto> getProductById(@PathVariable Integer id) {
         try {

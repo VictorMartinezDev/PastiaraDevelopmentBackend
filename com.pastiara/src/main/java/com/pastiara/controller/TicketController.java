@@ -18,7 +18,7 @@ public class TicketController {
         this.ticketService = ticketService;
     }
     
-    // GET - Obtener todos los tickets
+    // GET - Obtener todos los tickets 
     @GetMapping
     public ResponseEntity<List<TicketDto>> getAllTickets() {
         List<TicketDto> tickets = ticketService.findAll();
