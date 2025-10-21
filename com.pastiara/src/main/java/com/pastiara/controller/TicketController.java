@@ -5,6 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.pastiara.app.dto.TicketDto;
 import com.pastiara.app.service.TicketService;
+import com.pastiara.exception.BadRequestException;
+import com.pastiara.exception.ResourceNotFoundException;
+
 import java.util.List;
 
 @RestController
@@ -30,9 +33,12 @@ public class TicketController {
     public ResponseEntity<TicketDto> getTicketById(@PathVariable Long id) {
         try {
             TicketDto ticket = ticketService.findById(id);
+            if (ticket == null) {
+                throw new ResourceNotFoundException("No se encontró el ticket con ID: " + id);
+            }
             return ResponseEntity.ok(ticket);
-        } catch (IllegalStateException e) {
-            return ResponseEntity.notFound().build();
+        } finally {
+            System.out.println("Solicitud procesada para ticket ID: " + id);
         }
     }
     
@@ -41,31 +47,38 @@ public class TicketController {
     public ResponseEntity<List<TicketDto>> getTicketsByUserId(@PathVariable Long userId) {
         try {
             List<TicketDto> tickets = ticketService.findByUserId(userId);
+            if (tickets == null || tickets.isEmpty()) {
+                throw new ResourceNotFoundException("No se encontraron tickets para el usuario ID: " + userId);
+            }
             return ResponseEntity.ok(tickets);
-        } catch (UnsupportedOperationException e) {
-            return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
-        } catch (IllegalStateException e) {
-            return ResponseEntity.notFound().build();
+        } finally {
+            System.out.println("Solicitud procesada para usuario ID: " + userId);
         }
     }
     
     // POST - Crear nuevo ticket (cuando el usuario hace un pedido)
     @PostMapping
     public ResponseEntity<TicketDto> createTicket(@RequestBody TicketDto ticketDto) {
+        if (ticketDto == null) {
+            throw new BadRequestException("Los datos del ticket no pueden estar vacíos");
+        }
         TicketDto savedTicket = ticketService.save(ticketDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedTicket);
     }
     
     // PUT - Actualizar ticket existente
     @PutMapping("/{id}")
-    public ResponseEntity<TicketDto> updateTicket( 
-            @PathVariable Long id, 
+    public ResponseEntity<TicketDto> updateTicket(
+            @PathVariable Long id,
             @RequestBody TicketDto ticketDto) {
         try {
             TicketDto updatedTicket = ticketService.update(id, ticketDto);
+            if (updatedTicket == null) {
+                throw new ResourceNotFoundException("No se encontró el ticket con ID: " + id + " para actualizar");
+            }
             return ResponseEntity.ok(updatedTicket);
-        } catch (IllegalStateException e) {
-            return ResponseEntity.notFound().build();
+        } finally {
+            System.out.println("Solicitud de actualización procesada para ticket ID: " + id);
         }
     }
     
@@ -73,10 +86,12 @@ public class TicketController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTicket(@PathVariable Long id) {
         try {
-            ticketService.deleteById(id);
+            ticketService.deleteById(id); // sigue siendo void
             return ResponseEntity.noContent().build();
-        } catch (IllegalStateException e) {
-            return ResponseEntity.notFound().build();
+        } catch (IllegalStateException e) { // si el ticket no existe
+            throw new ResourceNotFoundException("No se encontró el ticket con ID: " + id + " para eliminar");
+        } finally {
+            System.out.println("Solicitud de eliminación procesada para ticket ID: " + id);
         }
     }
 }
