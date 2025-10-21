@@ -45,7 +45,7 @@ public class ProductController {
     
     // PUT - Actualizar producto existente (admin)
     @PutMapping("/{id}")
-    public ResponseEntity<ProductDto> updateProduct(
+    public ResponseEntity<ProductDto> updateProduct( 
             @PathVariable Integer id, 
             @RequestBody ProductDto productDto) {
         try {

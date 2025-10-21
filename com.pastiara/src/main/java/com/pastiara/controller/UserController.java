@@ -47,7 +47,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
     
-    // PUT - Actualizar usuario (cambiar email/password)
+    // PUT - Actualizar usuario (cambiar email/password) 
     @PutMapping("/{id}")
     public ResponseEntity<UserResponseDto> updateUser(
             @PathVariable Long id, 

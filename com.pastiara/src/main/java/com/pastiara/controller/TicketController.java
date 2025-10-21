@@ -58,7 +58,7 @@ public class TicketController {
     
     // PUT - Actualizar ticket existente
     @PutMapping("/{id}")
-    public ResponseEntity<TicketDto> updateTicket(
+    public ResponseEntity<TicketDto> updateTicket( 
             @PathVariable Long id, 
             @RequestBody TicketDto ticketDto) {
         try {

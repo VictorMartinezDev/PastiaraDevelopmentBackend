@@ -39,7 +39,7 @@ public class FavoriteController {
             FavoriteDto favorite = favoriteService.findById(id);
             return ResponseEntity.ok(favorite);
         } catch (IllegalStateException e) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.notFound().build(); 
         }
     }
     
