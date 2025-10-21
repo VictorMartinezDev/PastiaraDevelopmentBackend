@@ -165,16 +165,10 @@ public class TicketServiceImpl implements TicketService {
 	 */
 	@Override
 	public List<TicketDto> findByUserId(Long userId) {
-		// TODO: Necesitas agregar este método en TicketRepository:
-		// List<Ticket> findByUserUserId(Long userId);
-		
-		// Cuando lo implementes, descomenta esto:
-		// return ticketRepository.findByUserUserId(userId)
-		//		.stream()
-		//		.map(this::convertToDto)
-		//		.collect(Collectors.toList());
-		
-		throw new UnsupportedOperationException("Method not implemented yet");
+	    return ticketRepository.findByUserUserId(userId)
+	            .stream()
+	            .map(this::convertToDto)
+	            .collect(Collectors.toList());
 	}
 	
 	// ========== Métodos privados de conversión ==========
