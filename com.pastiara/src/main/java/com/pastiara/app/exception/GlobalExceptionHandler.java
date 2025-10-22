@@ -1,4 +1,4 @@
-package com.pastiara.exception;
+package com.pastiara.app.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.pastiara.exception;
+package com.pastiara.app.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
     public ResourceNotFoundException(String message) {

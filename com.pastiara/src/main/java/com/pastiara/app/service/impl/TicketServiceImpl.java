@@ -3,6 +3,7 @@ package com.pastiara.app.service.impl;
 import org.springframework.stereotype.Service;
 import com.pastiara.app.dto.ProductDto;
 import com.pastiara.app.dto.TicketDto;
+import com.pastiara.app.exception.ResourceNotFoundException;
 import com.pastiara.app.model.Product;
 import com.pastiara.app.model.Ticket;
 import com.pastiara.app.model.User;
@@ -73,7 +74,7 @@ public class TicketServiceImpl implements TicketService {
 		
 		// Verificar si existe
 		if (optionalTicket.isEmpty()) {
-			throw new IllegalStateException("Ticket does not exist with id " + id);
+			throw new ResourceNotFoundException("Ticket no encontrado con id " + id);
 		}
 		
 		// Convertir a DTO y devolver
@@ -106,7 +107,7 @@ public class TicketServiceImpl implements TicketService {
 		// Paso 1: Verificar que el ticket existe
 		Optional<Ticket> optionalTicket = ticketRepository.findById(id);
 		if (optionalTicket.isEmpty()) {
-			throw new IllegalStateException("Ticket does not exist with id " + id);
+			throw new ResourceNotFoundException("Ticket no encontrado con id " + id);
 		}
 		Ticket existingTicket = optionalTicket.get();
 		
@@ -117,19 +118,18 @@ public class TicketServiceImpl implements TicketService {
 		
 		// Paso 3: Actualizar el usuario si cambió
 		if (ticketDto.getUserId() != null) {
-			User user = userRepository.findById(ticketDto.getUserId())
-					.orElseThrow(() -> new IllegalStateException("User not found"));
-			existingTicket.setUser(user);
+		    User user = userRepository.findById(ticketDto.getUserId())
+		            .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado con id " + ticketDto.getUserId()));
+		    existingTicket.setUser(user);
 		}
 		
 		// Paso 4: Actualizar la lista de productos si cambió
 		if (ticketDto.getProducts() != null) {
-			// Buscar cada producto por su ID y crear la lista
-			List<Product> products = ticketDto.getProducts().stream()
-					.map(productDto -> productRepository.findById(productDto.getIdentificador())
-							.orElseThrow(() -> new IllegalStateException("Product not found")))
-					.collect(Collectors.toList());
-			existingTicket.setProduct(products);
+		    List<Product> products = ticketDto.getProducts().stream()
+		            .map(productDto -> productRepository.findById(productDto.getIdentificador())
+		                    .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado con id " + productDto.getIdentificador())))
+		            .collect(Collectors.toList());
+		    existingTicket.setProduct(products);
 		}
 		
 		// Paso 5: Guardar los cambios
@@ -149,7 +149,7 @@ public class TicketServiceImpl implements TicketService {
 		// Verificar que existe antes de eliminar
 		Optional<Ticket> optionalTicket = ticketRepository.findById(id);
 		if (optionalTicket.isEmpty()) {
-			throw new IllegalStateException("Ticket does not exist with id " + id);
+			throw new ResourceNotFoundException("Ticket no encontrado con id " + id);
 		}
 		
 		// Eliminar de la base de datos
@@ -231,19 +231,18 @@ public class TicketServiceImpl implements TicketService {
 		
 		// Buscar y asignar el usuario usando su ID
 		if (dto.getUserId() != null) {
-			User user = userRepository.findById(dto.getUserId())
-					.orElseThrow(() -> new IllegalStateException("User not found with id " + dto.getUserId()));
-			ticket.setUser(user);
+		    User user = userRepository.findById(dto.getUserId())
+		            .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado con id " + dto.getUserId()));
+		    ticket.setUser(user);
 		}
 		
 		// Buscar y asignar los productos usando sus IDs
 		if (dto.getProducts() != null && !dto.getProducts().isEmpty()) {
-			// Para cada ProductDto, buscar el Product real en la BD
-			List<Product> products = dto.getProducts().stream()
-					.map(productDto -> productRepository.findById(productDto.getIdentificador())
-							.orElseThrow(() -> new IllegalStateException("Product not found with id " + productDto.getIdentificador())))
-					.collect(Collectors.toList());
-			ticket.setProduct(products);
+		    List<Product> products = dto.getProducts().stream()
+		            .map(productDto -> productRepository.findById(productDto.getIdentificador())
+		                    .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado con id " + productDto.getIdentificador())))
+		            .collect(Collectors.toList());
+		    ticket.setProduct(products);
 		}
 		
 		return ticket;
