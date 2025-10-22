@@ -1,12 +1,12 @@
-package com.pastiara.controller;
+package com.pastiara.app.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.pastiara.app.dto.TicketDto;
+import com.pastiara.app.exception.BadRequestException;
+import com.pastiara.app.exception.ResourceNotFoundException;
 import com.pastiara.app.service.TicketService;
-import com.pastiara.exception.BadRequestException;
-import com.pastiara.exception.ResourceNotFoundException;
 
 import java.util.List;
 

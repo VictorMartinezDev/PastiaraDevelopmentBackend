@@ -20,9 +20,9 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long userId;
-	@Column(length= 50, nullable = false)
+	@Column(length= 70, nullable = false)
 	private String email;
-	@Column(length= 50, nullable = false)
+	@Column(length= 70, nullable = false)
 	private String password;
 	
 	//Relacion con tabla tickets

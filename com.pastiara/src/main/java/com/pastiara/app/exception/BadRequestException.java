@@ -1,4 +1,4 @@
-package com.pastiara.exception;
+package com.pastiara.app.exception;
 
 public class BadRequestException extends RuntimeException {
     public BadRequestException(String message) {

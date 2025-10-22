@@ -1,4 +1,4 @@
-package com.pastiara.controller;
+package com.pastiara.app.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
