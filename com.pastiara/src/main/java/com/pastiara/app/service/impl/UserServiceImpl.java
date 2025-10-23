@@ -3,6 +3,7 @@ package com.pastiara.app.service.impl;
 import org.springframework.stereotype.Service;
 import com.pastiara.app.dto.UserRegistrationDto;
 import com.pastiara.app.dto.UserResponseDto;
+import com.pastiara.app.dto.LoginDto;
 import com.pastiara.app.dto.UserInfoDto;
 import com.pastiara.app.model.User;
 import com.pastiara.app.model.UserInfo;
@@ -217,6 +218,35 @@ public class UserServiceImpl implements UserService {
 		// Convertir a DTO y devolver
 		return convertUserInfoToDto(savedUserInfo);
 	}
+	
+	// Validación de credenciales
+	
+	public UserRegistrationDto validarCredenciales(LoginDto loginDto) {
+		
+		Optional<User> optionalUser = userRepository.findByEmail(loginDto.getEmail()); // Cambiado de findById por findById
+		
+		if (optionalUser.isPresent()) {
+		User user = optionalUser.get();
+		
+		  if (user.getPassword().equals(loginDto.getPassword())) {
+			  
+			UserRegistrationDto userRegistrationDto = new UserRegistrationDto();
+			userRegistrationDto.setEmail(user.getEmail());
+			userRegistrationDto.setPassword("*****");
+			userRegistrationDto.setIdentificador(user.getUserId());
+		    if (user.getUserInfo() != null) {
+		    	userRegistrationDto.setName(user.getUserInfo().getName());
+		    	userRegistrationDto.setLastName(user.getUserInfo().getLastName());
+		    }
+			
+		     return userRegistrationDto;
+		  }
+
+		 } 
+		return new UserRegistrationDto();
+	}
+
+		
 	
 	// ========== Métodos privados de conversión ==========
 	

@@ -18,6 +18,9 @@ Uso: Controller para /register o /login
 public class UserRegistrationDto {
 	private String email;
 	private String password;
+	private Long identificador;
+	private String name;
+	private String lastName;
 	
 	public UserRegistrationDto() {}
 
@@ -41,6 +44,30 @@ public class UserRegistrationDto {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public Long getIdentificador() {
+		return identificador;
+	}
+	
+	public void setIdentificador(Long identificador) {
+		this.identificador = identificador;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getLastName() {
+		return name;
+	}
+	
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.pastiara.app.model;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -65,6 +66,14 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public UserInfo getUserInfo() {
+		return userInfo;
+	}
+	
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
 	}
 
 	@Override

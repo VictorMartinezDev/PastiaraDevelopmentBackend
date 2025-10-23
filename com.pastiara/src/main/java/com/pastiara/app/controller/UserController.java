@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.pastiara.app.dto.UserRegistrationDto;
 import com.pastiara.app.dto.UserResponseDto;
+import com.pastiara.app.dto.LoginDto;
 //import com.pastiara.app.dto.LoginDto;
 import com.pastiara.app.dto.UserInfoDto;
 import com.pastiara.app.service.UserService;
@@ -98,10 +99,10 @@ public class UserController {
         }
     }
 
-    // @PostMapping("/login")
-    // public UserRegistrationDto validarCredenciales(@RequestBody LoginDto
-    // loginDto) {
-    // return userService.validarCredenciales(loginDto);
-    // }
+     @PostMapping("/login")
+     public UserRegistrationDto validarCredenciales(@RequestBody LoginDto
+     loginDto) {
+     return userService.validarCredenciales(loginDto);
+     }
 
 }
