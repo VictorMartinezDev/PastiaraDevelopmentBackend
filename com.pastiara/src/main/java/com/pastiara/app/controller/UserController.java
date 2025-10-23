@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.pastiara.app.dto.UserRegistrationDto;
 import com.pastiara.app.dto.UserResponseDto;
+//import com.pastiara.app.dto.LoginDto;
 import com.pastiara.app.dto.UserInfoDto;
 import com.pastiara.app.service.UserService;
 import java.util.List;
@@ -13,22 +14,22 @@ import java.util.List;
 @RequestMapping("/api/users")
 @CrossOrigin(origins = "*")
 public class UserController {
-    
+
     private final UserService userService;
-    
+
     public UserController(UserService userService) {
         this.userService = userService;
     }
-    
+
     // ==================== CRUD para User =====================
-    
+
     // GET - Obtener todos los usuarios
     @GetMapping
     public ResponseEntity<List<UserResponseDto>> getAllUsers() {
         List<UserResponseDto> users = userService.findAll();
         return ResponseEntity.ok(users);
     }
-    
+
     // GET - Obtener usuario por ID
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDto> getUserById(@PathVariable Long id) {
@@ -39,18 +40,18 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
-    
+
     // POST - Crear nuevo usuario (registro)
     @PostMapping("/register")
     public ResponseEntity<UserResponseDto> registerUser(@RequestBody UserRegistrationDto userRegistrationDto) {
         UserResponseDto savedUser = userService.save(userRegistrationDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
-    
-    // PUT - Actualizar usuario (cambiar email/password) 
+
+    // PUT - Actualizar usuario (cambiar email/password)
     @PutMapping("/{id}")
     public ResponseEntity<UserResponseDto> updateUser(
-            @PathVariable Long id, 
+            @PathVariable Long id,
             @RequestBody UserRegistrationDto userRegistrationDto) {
         try {
             UserResponseDto updatedUser = userService.update(id, userRegistrationDto);
@@ -59,7 +60,7 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
-    
+
     // DELETE - Eliminar usuario
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
@@ -70,9 +71,9 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
-    
+
     // ==================== Endpoints para UserInfo ====================
-    
+
     // GET - Obtener información del perfil del usuario
     @GetMapping("/{id}/info")
     public ResponseEntity<UserInfoDto> getUserInfo(@PathVariable Long id) {
@@ -83,11 +84,11 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
-    
+
     // PUT - Actualizar información del perfil del usuario
     @PutMapping("/{id}/info")
     public ResponseEntity<UserInfoDto> updateUserInfo(
-            @PathVariable Long id, 
+            @PathVariable Long id,
             @RequestBody UserInfoDto userInfoDto) {
         try {
             UserInfoDto updatedInfo = userService.updateUserInfo(id, userInfoDto);
@@ -96,6 +97,11 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
-    
-    
+
+    // @PostMapping("/login")
+    // public UserRegistrationDto validarCredenciales(@RequestBody LoginDto
+    // loginDto) {
+    // return userService.validarCredenciales(loginDto);
+    // }
+
 }
